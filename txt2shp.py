@@ -1,4 +1,5 @@
 """This script is a successor to corners.py found here:
+G:\Lidar\arcGIS_tools\v10
 
 The issue with corners.py is coordinates are converted to doubles format
 when creating polygon objects in arcpy leading to imprecision issues.
@@ -35,8 +36,8 @@ schema = {
 
 # Input text files are delimited by multiple spaces
 csv.register_dialect('dialect',
-delimiter = ' ',
-skipinitialspace = True)
+                     delimiter=' ',
+                     skipinitialspace=True)
 
 
 with fiona.open('Tile_Scheme.shp', 'w', 'ESRI Shapefile', schema) as fout:
