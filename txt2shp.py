@@ -2,18 +2,20 @@
 G:\Lidar\arcGIS_tools\v10
 
 The issue with corners.py is coordinates are converted to doubles format
-when creating polygon objects in arcpy leading to imprecision issues.
+when creating polygon objects in arcpy causing imprecision issues.
 
 This script uses the shapely and fiona modules which manipulates vector
 data and reads/writes geospatial data. ArcGIS is not required.
 
-Requires Python 3.x
+Requires Python 3.6
 """
 
 
 from shapely.geometry import mapping, Polygon
 import fiona
 import csv
+import os
+from pathlib import Path
 
 
 def tile_coordinates(text):
@@ -38,6 +40,13 @@ schema = {
 csv.register_dialect('dialect',
                      delimiter=' ',
                      skipinitialspace=True)
+
+
+# Create and write to folder in path directory
+dir = Path(path).with_suffix('')
+if not Path.exists(dir):
+    Path.mkdir(dir)
+os.chdir(dir)
 
 
 with fiona.open('Tile_Scheme.shp', 'w', 'ESRI Shapefile', schema) as fout:
